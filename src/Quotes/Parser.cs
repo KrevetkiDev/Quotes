@@ -7,7 +7,7 @@ public class Parser
         List<string> lines = File.ReadAllLines(path).ToList();
         List<Bar> bars = [];
 
-        foreach (var line in lines)
+        foreach (var line in lines.Skip(1))
         {
             string[] words = line.Split([',']);
             Bar bar = new Bar();
