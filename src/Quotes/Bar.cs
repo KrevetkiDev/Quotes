@@ -6,9 +6,9 @@ public class Bar
         public string Description;
         public DateOnly Date;
         public TimeOnly Time;
-        public double Open;
-        public double High;
-        public double Low;
-        public double Close;
+        public decimal Open;
+        public decimal High;
+        public decimal Low;
+        public decimal Close;
         public int TotalVolume;
 }
