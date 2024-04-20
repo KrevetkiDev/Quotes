@@ -4,14 +4,15 @@ namespace Quotes;
 
 public class DayRange
 {
-    public string symbol;
-    public string description;
-    public string date;
-    public decimal high;
-    public decimal low;
+    public string Symbol;
+    public string Description;
+    public DateOnly Date;
+    public decimal High;
+    public decimal Low;
 
     public override string ToString()
     {
-        return $"{symbol},{description},{date},{high.ToString(CultureInfo.InvariantCulture)},{low.ToString(CultureInfo.InvariantCulture)},";
+        return
+            $"{Symbol},{Description},{Date},{High.ToString(CultureInfo.InvariantCulture)},{Low.ToString(CultureInfo.InvariantCulture)}";
     }
 }

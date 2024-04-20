@@ -1,24 +1,20 @@
-﻿using System.Collections.ObjectModel;
-using System.Globalization;
-
-namespace Quotes;
+﻿namespace Quotes;
 
 public static class QuoteHelper
 {
-    
-   public static Dictionary<DateOnly, List<Bar>> GroupByData(List<Bar> bars)
+    public static Dictionary<DateOnly, List<Bar>> GroupByData(List<Bar> bars)
     {
         Dictionary<DateOnly, List<Bar>> groupedByDate = new Dictionary<DateOnly, List<Bar>>();
-        for (int i = 0; i < bars.Count; i++)
+        foreach (var bar in bars)
         {
-            if (groupedByDate.ContainsKey(bars[i].Date))
+            if (groupedByDate.ContainsKey(bar.Date))
             {
-                groupedByDate[bars[i].Date].Add(bars[i]);
+                groupedByDate[bar.Date].Add(bar);
             }
             else
             {
-                groupedByDate.Add(bars[i].Date, new List<Bar>());
-                groupedByDate[bars[i].Date].Add(bars[i]);
+                groupedByDate.Add(bar.Date, new List<Bar>());
+                groupedByDate[bar.Date].Add(bar);
             }
         }
 
@@ -27,29 +23,34 @@ public static class QuoteHelper
 
     public static List<DayRange> GetDayRange(Dictionary<DateOnly, List<Bar>> groupedByData)
     {
-        List <DayRange> dayRanges = new List<DayRange>();
+        List<DayRange> dayRanges = new List<DayRange>();
         foreach (var group in groupedByData)
         {
-            DayRange dayRange = new DayRange();
-            dayRange.symbol = group.Value[0].Symbol;
-            dayRange.description = group.Value[0].Description;
-            dayRange.date = group.Value[0].Date.ToString();
-            dayRange.high = 0;
-            dayRange.low = decimal.MaxValue;
+            DayRange dayRange = new DayRange
+            {
+                Symbol = group.Value[0].Symbol,
+                Description = group.Value[0].Description,
+                Date = group.Value[0].Date,
+                High = 0,
+                Low = decimal.MaxValue
+            };
+
             foreach (var bar in group.Value)
             {
-                if (dayRange.high < bar.High)
+                if (dayRange.High < bar.High)
                 {
-                    dayRange.high = bar.High;
+                    dayRange.High = bar.High;
                 }
 
-                if (dayRange.low > bar.Low)
+                if (dayRange.Low > bar.Low)
                 {
-                    dayRange.low = bar.Low;
+                    dayRange.Low = bar.Low;
                 }
             }
+
             dayRanges.Add(dayRange);
         }
+
         return dayRanges;
     }
 }
