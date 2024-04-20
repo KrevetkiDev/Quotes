@@ -53,4 +53,18 @@ public static class QuoteHelper
 
         return dayRanges;
     }
+
+    public static IEnumerable<DayRange> GetDayRangeWithLinq(IEnumerable<IGrouping<DateOnly, Bar>> groupedByData)
+    {
+        var dayRanges = groupedByData.Select(group => new DayRange
+        {
+            Symbol = group.First().Symbol,
+            Description = group.First().Description,
+            Date = group.First().Date,
+            High = group.Max(bar => bar.High),
+            Low = group.Min(bar => bar.Low)
+        });
+
+        return dayRanges;
+    }
 }

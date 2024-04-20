@@ -1,6 +1,6 @@
 ﻿using Quotes;
 
-TaskOne();
+TaskOneWithLinq();
 
 void TaskOne()
 {
@@ -20,4 +20,15 @@ void TaskOne()
     }
 
     File.WriteAllLines(newPath, lines);
+}
+
+void TaskOneWithLinq()
+{
+    string path = "./Assets/quotes.txt";
+    string newPath = "./quotesNew.txt";
+
+    var bars = Parser.ParseBarsFromFileWithLinq(path);
+    var groupedByData = bars.GroupBy(bar => bar.Date);
+    var dayRanges = QuoteHelper.GetDayRangeWithLinq(groupedByData);
+    File.WriteAllLines(newPath, dayRanges.Select(dayRange => dayRange.ToString()));
 }
