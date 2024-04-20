@@ -25,6 +25,13 @@ public static class Parser
         return bars;
     }
 
+    public static IEnumerable<Bar> ParseBarsFromFileWithLinq(string path)
+    {
+        return File.ReadLines(path)
+            .Skip(1)
+            .Select(ParseBar);
+    }
+
     public static Bar ParseBar(string line)
     {
         string[] words = line.Split(',');
