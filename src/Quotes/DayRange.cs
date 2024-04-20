@@ -1,4 +1,6 @@
-﻿namespace Quotes;
+﻿using System.Globalization;
+
+namespace Quotes;
 
 public class DayRange
 {
@@ -7,5 +9,9 @@ public class DayRange
     public string date;
     public decimal high;
     public decimal low;
-    public List<string> ListOfDayValues;
+
+    public override string ToString()
+    {
+        return $"{symbol},{description},{date},{high.ToString(CultureInfo.InvariantCulture)},{low.ToString(CultureInfo.InvariantCulture)},";
+    }
 }

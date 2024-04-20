@@ -11,9 +11,15 @@ void TaskOne()
     string newPath = "./quotesNew.txt";
     List<Bar> bars = Parser.ParseBarsFromFile(path);
     Dictionary<DateOnly, List<Bar>> groupedByData = QuoteHelper.GroupByData(bars);
-    QuoteHelper.NewLineFormation(groupedByData);
-    DayRange dayRange = new DayRange();
-    File.WriteAllLines(newPath, dayRange.ListOfDayValues);
+    List<DayRange> dayRanges = new List<DayRange>();
+    List<string> lines = new List<string>();
+       dayRanges = QuoteHelper.GetDayRange(groupedByData);
+       foreach (var variablDayRange in dayRanges)
+       {
+           var line = variablDayRange.ToString();
+           lines.Add(line);
+       }
+       File.WriteAllLines(newPath, lines);
 }
 
 

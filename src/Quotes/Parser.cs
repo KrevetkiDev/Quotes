@@ -9,7 +9,6 @@ public static class Parser
         List<string> lines = File.ReadAllLines(path).ToList();
         bool isFirstLine = true;
         List<Bar> bars = [];
-        Bar bar = new Bar();
 
         foreach (var line in lines)
         {
@@ -19,7 +18,7 @@ public static class Parser
                 continue;
             }
 
-            bar = ParseBar(line);
+            Bar bar = ParseBar(line);
             
 
             bars.Add(bar);

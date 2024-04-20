@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Collections.ObjectModel;
+using System.Globalization;
 
 namespace Quotes;
 
@@ -24,8 +25,9 @@ public static class QuoteHelper
         return groupedByDate;
     }
 
-    public static void NewLineFormation(Dictionary<DateOnly, List<Bar>> groupedByData)
+    public static List<DayRange> GetDayRange(Dictionary<DateOnly, List<Bar>> groupedByData)
     {
+        List <DayRange> dayRanges = new List<DayRange>();
         foreach (var group in groupedByData)
         {
             DayRange dayRange = new DayRange();
@@ -46,8 +48,8 @@ public static class QuoteHelper
                     dayRange.low = bar.Low;
                 }
             }
-            var line = $"{dayRange.symbol},{dayRange.description},{dayRange.date},{dayRange.high.ToString(CultureInfo.InvariantCulture)},{dayRange.low.ToString(CultureInfo.InvariantCulture)}";
-            dayRange.ListOfDayValues.Add(line);
+            dayRanges.Add(dayRange);
         }
+        return dayRanges;
     }
 }
