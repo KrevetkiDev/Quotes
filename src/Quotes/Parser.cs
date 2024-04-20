@@ -2,7 +2,7 @@ using System.Globalization;
 
 namespace Quotes;
 
-public class Parser
+public static class Parser
 {
     public static List<Bar> ParseBarsFromFile(string path)
     {
