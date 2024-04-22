@@ -90,15 +90,15 @@ public static class QuoteHelper
 
     public static List<Bar> GetHourBars(Dictionary<DateTime, List<Bar>> groupedByHour)
     {
-        List<Bar> hourRanges = new List<Bar>();
+        List<Bar> hourBars = new List<Bar>();
         foreach (var group in groupedByHour)
         {
-            Bar hourRange = new Bar
+            Bar hourBar = new Bar
             {
                 Symbol = group.Value[0].Symbol,
                 Description = group.Value[0].Description,
-                Date = DateOnly.FromDateTime(group.Key.Date),
-                Time = new TimeOnly(group.Key.Hour),
+                Date = DateOnly.FromDateTime(group.Key),
+                Time = TimeOnly.FromDateTime(group.Key),
                 Open = group.Value[0].Open,
                 High = 0,
                 Low = decimal.MaxValue
@@ -106,25 +106,23 @@ public static class QuoteHelper
 
             foreach (var bar in group.Value)
             {
-                if (hourRange.High < bar.High)
+                if (hourBar.High < bar.High)
                 {
-                    hourRange.High = bar.High;
+                    hourBar.High = bar.High;
                 }
 
-                if (hourRange.Low > bar.Low)
+                if (hourBar.Low > bar.Low)
                 {
-                    hourRange.Low = bar.Low;
+                    hourBar.Low = bar.Low;
                 }
 
-                hourRange.TotalVolume += bar.TotalVolume;
+                hourBar.TotalVolume += bar.TotalVolume;
             }
 
-            var checkLenghtList = hourRanges.Count;
-            var closedValue = checkLenghtList == 0 ? group.Value[0].Close : hourRanges[checkLenghtList - 1].Close;
-            hourRange.Close = closedValue;
-            hourRanges.Add(hourRange);
+            hourBar.Close = hourBar.Close = group.Value.Count > 0 ? group.Value[group.Value.Count - 1].Close : 0;
+            hourBars.Add(hourBar);
         }
 
-        return hourRanges;
+        return hourBars;
     }
 }
