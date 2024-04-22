@@ -68,7 +68,7 @@ public static class QuoteHelper
         return dayRanges;
     }
 
-    public static Dictionary<DateTime, List<Bar>> GroupByTime(List<Bar> bars)
+    public static Dictionary<DateTime, List<Bar>> GroupByHour(List<Bar> bars)
     {
         Dictionary<DateTime, List<Bar>> groupedByHour = new Dictionary<DateTime, List<Bar>>();
         foreach (var bar in bars)
@@ -88,7 +88,7 @@ public static class QuoteHelper
         return groupedByHour;
     }
 
-    public static List<Bar> GetHourRange(Dictionary<DateTime, List<Bar>> groupedByHour)
+    public static List<Bar> GetHourBars(Dictionary<DateTime, List<Bar>> groupedByHour)
     {
         List<Bar> hourRanges = new List<Bar>();
         foreach (var group in groupedByHour)
@@ -97,9 +97,11 @@ public static class QuoteHelper
             {
                 Symbol = group.Value[0].Symbol,
                 Description = group.Value[0].Description,
-                Date = group.Value[0].Date,
-                Time = group.Value[0].Time,
-                Open = group.Value[0].Open
+                Date = DateOnly.FromDateTime(group.Key.Date),
+                Time = new TimeOnly(group.Key.Hour),
+                Open = group.Value[0].Open,
+                High = 0,
+                Low = decimal.MaxValue
             };
 
             foreach (var bar in group.Value)
@@ -118,7 +120,7 @@ public static class QuoteHelper
             }
 
             var checkLenghtList = hourRanges.Count;
-            var closedValue = checkLenghtList;
+            var closedValue = checkLenghtList == 0 ? group.Value[0].Close : hourRanges[checkLenghtList - 1].Close;
             hourRange.Close = closedValue;
             hourRanges.Add(hourRange);
         }

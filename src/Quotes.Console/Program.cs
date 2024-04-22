@@ -5,7 +5,7 @@ TaskTwo();
 void TaskOne()
 {
     string path = "./Assets/quotes.txt";
-    string newPath = "./quotesNew.txt";
+    string newPath = "./quotesTaskOne.txt";
 
     List<Bar> bars = Parser.ParseBarsFromFile(path);
     Dictionary<DateOnly, List<Bar>> groupedByData = QuoteHelper.GroupByData(bars);
@@ -25,7 +25,7 @@ void TaskOne()
 void TaskOneWithLinq()
 {
     string path = "./Assets/quotes.txt";
-    string newPath = "./quotesNew.txt";
+    string newPath = "./quotesTaskOneWitnLinq.txt";
 
     var bars = Parser.ParseBarsFromFileWithLinq(path);
     var groupedByData = bars.GroupBy(bar => bar.Date);
@@ -36,12 +36,12 @@ void TaskOneWithLinq()
 void TaskTwo()
 {
     string path = "./Assets/quotes.txt";
-    string newPath = "./quotesNew.txt";
+    string newPath = "./quotesTaskTwo.txt";
 
     List<Bar> bars = Parser.ParseBarsFromFile(path);
-    Dictionary<DateTime, List<Bar>> groupedByHour = QuoteHelper.GroupByTime(bars);
+    Dictionary<DateTime, List<Bar>> groupedByHour = QuoteHelper.GroupByHour(bars);
 
-    List<Bar> hourRanges = QuoteHelper.GetHourRange(groupedByHour);
+    List<Bar> hourRanges = QuoteHelper.GetHourBars(groupedByHour);
 
     List<string> lines = new List<string>();
     foreach (var hourRange in hourRanges)
