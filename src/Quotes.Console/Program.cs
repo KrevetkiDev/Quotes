@@ -1,6 +1,6 @@
 ﻿using Quotes;
 
-TaskTwo();
+TaskTwoWithLinq();
 
 void TaskOne()
 {
@@ -51,4 +51,16 @@ void TaskTwo()
     }
 
     File.WriteAllLines(newPath, lines);
+}
+
+void TaskTwoWithLinq()
+{
+    string path = "./Assets/quotes.txt";
+    string newPath = "./quotesTaskTwoWithLinq.txt";
+
+    var bars = Parser.ParseBarsFromFileWithLinq(path);
+    var groupedByHour =
+        bars.GroupBy(bar => new DateTime(bar.Date.Year, bar.Date.Month, bar.Date.Day, bar.Time.Hour, 0, 0));
+    var hourRanges = QuoteHelper.GetHourBarsWithLinq(groupedByHour);
+    File.WriteAllLines(newPath, hourRanges.Select(hourRange => hourRange.ToString()));
 }
