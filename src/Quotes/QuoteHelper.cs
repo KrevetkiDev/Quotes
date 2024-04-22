@@ -125,4 +125,23 @@ public static class QuoteHelper
 
         return hourBars;
     }
+
+
+    public static IEnumerable<Bar> GetHourBarsWithLinq(IEnumerable<IGrouping<DateTime, Bar>> groupedByHour)
+    {
+        var hourBars = groupedByHour.Select(group => new Bar
+        {
+            Symbol = group.First().Symbol,
+            Description = group.First().Description,
+            Date = DateOnly.FromDateTime(group.Key),
+            Time = TimeOnly.FromDateTime(group.Key),
+            Open = group.First().Open,
+            High = group.Max(bar => bar.High),
+            Low = group.Min(bar => bar.Low),
+            Close = group.Last().Close,
+            TotalVolume = group.Sum(bar => bar.TotalVolume)
+        });
+
+        return hourBars;
+    }
 }
