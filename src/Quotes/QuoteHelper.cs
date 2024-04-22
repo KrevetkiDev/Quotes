@@ -67,4 +67,62 @@ public static class QuoteHelper
 
         return dayRanges;
     }
+
+    public static Dictionary<DateTime, List<Bar>> GroupByHour(List<Bar> bars)
+    {
+        Dictionary<DateTime, List<Bar>> groupedByHour = new Dictionary<DateTime, List<Bar>>();
+        foreach (var bar in bars)
+        {
+            var datetime = new DateTime(bar.Date.Year, bar.Date.Month, bar.Date.Day, bar.Time.Hour, 0, 0);
+            if (groupedByHour.ContainsKey(datetime))
+            {
+                groupedByHour[datetime].Add(bar);
+            }
+            else
+            {
+                groupedByHour.Add(datetime, new List<Bar>());
+                groupedByHour[datetime].Add(bar);
+            }
+        }
+
+        return groupedByHour;
+    }
+
+    public static List<Bar> GetHourBars(Dictionary<DateTime, List<Bar>> groupedByHour)
+    {
+        List<Bar> hourBars = new List<Bar>();
+        foreach (var group in groupedByHour)
+        {
+            Bar hourBar = new Bar
+            {
+                Symbol = group.Value[0].Symbol,
+                Description = group.Value[0].Description,
+                Date = DateOnly.FromDateTime(group.Key),
+                Time = TimeOnly.FromDateTime(group.Key),
+                Open = group.Value[0].Open,
+                High = 0,
+                Low = decimal.MaxValue
+            };
+
+            foreach (var bar in group.Value)
+            {
+                if (hourBar.High < bar.High)
+                {
+                    hourBar.High = bar.High;
+                }
+
+                if (hourBar.Low > bar.Low)
+                {
+                    hourBar.Low = bar.Low;
+                }
+
+                hourBar.TotalVolume += bar.TotalVolume;
+            }
+
+            hourBar.Close = hourBar.Close = group.Value.Count > 0 ? group.Value[group.Value.Count - 1].Close : 0;
+            hourBars.Add(hourBar);
+        }
+
+        return hourBars;
+    }
 }
