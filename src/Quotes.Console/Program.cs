@@ -69,5 +69,8 @@ void TaskThree()
 {
     var file1 = File.ReadLines("./Assets/File1.txt");
     var file2 = File.ReadLines("./Assets/File2.txt");
+
     File.WriteAllLines("./NewLines.txt", file2.Except(file1));
+
+    File.WriteAllLines("./LostLines.txt", file1.Except(file2));
 }
