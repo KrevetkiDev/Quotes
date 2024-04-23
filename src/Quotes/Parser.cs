@@ -27,7 +27,7 @@ public static class Parser
 
     public static IEnumerable<Bar> ParseBarsFromFileWithLinq(string path)
     {
-        return File.ReadLines(path)
+        return File.ReadAllLines(path)
             .Skip(1)
             .Select(ParseBar);
     }
