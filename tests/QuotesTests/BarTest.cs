@@ -26,6 +26,6 @@ public class BarTest
         var line = bar.ToString();
 
         // Assert
-        line.Should().BeEquivalentTo("ABBV,NYSE,02.01.2020,8:01,89.090,89.090,88.950,88.950,1325");
+        line.Should().Be("ABBV,NYSE,02.01.2020,8:01,89.090,89.090,88.950,88.950,1325");
     }
 }
