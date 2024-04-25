@@ -27,7 +27,7 @@ public class ParserTests
 
     [Theory]
     [MemberData(nameof(Data))]
-    public void Parse_ParseBar_ShouldReturnBar(string line, Bar expectedBar)
+    public void ParseBar_ShouldReturnBar_ValidArgs(string line, Bar expectedBar)
     {
         // Act
         Bar bar = Parser.ParseBar(line);

@@ -6,7 +6,7 @@ namespace QuotesTests;
 public class BarTest
 {
     [Fact]
-    public void ToString_ShouldReturnBarInCSVFormat()
+    public void ToString_ShouldReturnBarInCSVFormat_ValidArgs()
     {
         // Arrange
         var bar = new Bar()

@@ -6,7 +6,7 @@ namespace QuotesTests;
 public class DayRangeTest
 {
     [Fact]
-    public void ToString_ShouldReturnDayRangeInCSVFormat()
+    public void ToString_ShouldReturnDayRangeInCSVFormat_ValidArgs()
     {
         // Arrange
         var dayRange = new DayRange()
