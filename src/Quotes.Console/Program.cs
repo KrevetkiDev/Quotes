@@ -1,5 +1,9 @@
 ﻿using Quotes;
 
+TaskOne();
+TaskOneWithLinq();
+TaskTwo();
+TaskTwoWithLinq();
 TaskThree();
 
 void TaskOne()

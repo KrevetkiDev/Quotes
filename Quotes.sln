@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quotes.Console", "src\Quote
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{EB577E8D-230B-4B57-853A-8C4C49549095}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuotesTests", "tests\QuotesTests\QuotesTests.csproj", "{A006A69D-821D-440A-9506-A49C254C8742}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,9 +30,14 @@ Global
 		{4B11F8B2-82C5-4A86-A824-91C889FBF3D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B11F8B2-82C5-4A86-A824-91C889FBF3D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B11F8B2-82C5-4A86-A824-91C889FBF3D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A006A69D-821D-440A-9506-A49C254C8742}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A006A69D-821D-440A-9506-A49C254C8742}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A006A69D-821D-440A-9506-A49C254C8742}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A006A69D-821D-440A-9506-A49C254C8742}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E861F599-C094-4458-87BA-EA6365F34A8D} = {A8C4C7F8-1980-4CF8-A907-D3236F7CEFEF}
 		{4B11F8B2-82C5-4A86-A824-91C889FBF3D6} = {A8C4C7F8-1980-4CF8-A907-D3236F7CEFEF}
+		{A006A69D-821D-440A-9506-A49C254C8742} = {EB577E8D-230B-4B57-853A-8C4C49549095}
 	EndGlobalSection
 EndGlobal
